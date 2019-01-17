@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cooking</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    
+  <nav class="navbar navbar-default">
+    <div id="container">
+      <div class="navbar-header"> 
+        <div class="navbar-brand">
+          <%= link_to "Recipes",root_path %>
+        </div>
+      </div>
+        <% if user_signed_in? %>
+        <ul class="nav navbar-nav navbar-right">
+          <li> <%= link_to "New Recipe", new_recipe_path %></li>
+          <li> <%= link_to "Sign Out", destroy_user_session_path,method: :delete %></li>
+        </ul>
+        <% else %>
+        <ul class="nav navbar-nav navbar-right">
+          <li> <%= link_to "Sign up", new_user_registration_path %></li>
+          <li> <%= link_to "Sign in", new_user_session_path %></li>
+        </ul>
+        <% end %>
+    </div>
+  </nav>
+  <% if flash[:notice] %>
+      <div class="notification is-success global-notification">
+        <p class="notice"><%= notice %></p>
+      </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="notification is-danger global-notification">
+      <p class="alert"><%= alert %></p>
+    </div>
+  <% end %>
+
+
+
+
+    <%= yield %>
+  </body>
+</html>

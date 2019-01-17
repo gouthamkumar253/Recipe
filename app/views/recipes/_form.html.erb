@@ -1,0 +1,64 @@
+<%= simple_form_for @recipe, html: { multipart: true } do |f| %>
+      <%= f.error_notification %>
+
+        <div class="columns">
+
+          <div class="field column is-9">
+            <div class="control">
+              <%= f.input :title , required: true, input_html: { class: "form-control"}, wrapper: false, label_html: { class:"label" } %>
+            </div>
+          </div>
+
+          <div class="field column">
+            <div class="control">
+              <%= f.input :description, required: true, input_html: { class: "form-control" }, wrapper: false, label_html: { class:"label" } %>
+            </div>
+          </div>
+
+          <div class="field">
+          <div class="control">
+            <label class="label">Add images</label>
+              <div class="file">
+              <label class="file-label">
+                <%= f.input :image, as: :file, input_html: { class:"file-input recipe-image" }, label: false, wrapper: false %>
+                  <span class="file-cta">
+                    <span class="file-icon"><i class="fa fa-upload"></i></span>
+                    <span class="file-label">Choose a file…</span>
+                  </span>
+              </label>
+              </div>
+            </div>
+          </div>
+          <output id="list"></output>
+          <div class="row">
+            <div class="col-md-6">
+              <h3>Ingredients</h3>
+              <div id="ingredients">
+                <%= f.simple_fields_for :ingredients do |ingredient| %>
+                  <%= render 'ingredient_fields', f:ingredient  %>
+                <% end %>
+                <div class="links">
+                  <%= link_to_add_association 'Add Ingredient', f, :ingredients, class:"btn btn-default add-button"  %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h3>Directions</h3>
+              <div id="Directions">
+                <%= f.simple_fields_for :directions do |direction| %>
+                  <%= render 'direction_fields', f:direction  %>
+                <% end %>
+                <div class="links">
+                  <%= link_to_add_association 'Add Steps', f, :directions, class:"btn btn-default add-button"  %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <%= f.button :submit, class: 'button is-warning' %>
+
+        </div>
+        <% end %>
+
+
+        
